@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Visit_.#####",
+ "creation": "2025-11-30 14:33:20.164127",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "column_break_gjlw",
+  "sales_person",
+  "section_break_qcoe",
+  "visit_schedule"
+ ],
+ "fields": [
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_gjlw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
+  },
+  {
+   "fieldname": "section_break_qcoe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "visit_schedule",
+   "fieldtype": "Table",
+   "label": "Visit Schedule",
+   "options": "Visit Schedule"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-11-30 14:47:05.742858",
+ "modified_by": "Administrator",
+ "module": "Enwan Factory",
+ "name": "Visit",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
