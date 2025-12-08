@@ -43,7 +43,12 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"Quotation": "public/js/qt.js"}
+
+doctype_js = {
+    "Sales Person": "public/js/sales_person.js",
+    # "Quotation": "public/js/qt.js",
+}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -137,13 +142,15 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+
+doc_events = {
+    "Sales Order": {
+        # "on_update": "enwan_factory.api.so.update_sales_person_targets",
+        "on_cancel": "enwan_factory.api.so.update_sales_person_targets",
+        "on_submit": "enwan_factory.api.so.update_sales_person_targets",
+        "on_update_after_submit": "enwan_factory.api.so.update_sales_person_targets",
+    }
+}
 
 # Scheduled Tasks
 # ---------------
