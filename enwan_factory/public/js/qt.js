@@ -1,20 +1,25 @@
 frappe.ui.form.on("Quotation", {
+  //   refresh(frm) {
+  //     // frm.fields_dict["items"].grid.get_field(
+  //     //   "custom_additional_services"
+  //     // ).get_query = function (doc, cdt, cdn) {
+  //     //   let row = locals[cdt][cdn];
+  //     //   return {
+  //     //     filters: {
+  //     //       layers: row.custom_layers,
+  //     //     },
+  //     //   };
+  //     // };
+  //   },
   refresh(frm) {
-    // frm.fields_dict["items"].grid.get_field(
-    //   "custom_additional_services"
-    // ).get_query = function (doc, cdt, cdn) {
-    //   let row = locals[cdt][cdn];
-    //   return {
-    //     filters: {
-    //       layers: row.custom_layers,
-    //     },
-    //   };
-    // };
-  },
-});
+    // add material request button
+    frm.add_custom_button(__("Material Request"), function () {
+      frappe.model.open_mapped_doc({
+        method: "enwan_factory.api.api.make_material_request",
+        frm: frm,
+      });
+    });
 
-frappe.ui.form.on("Quotation", {
-  refresh(frm) {
     filterChildFields(
       frm,
       "items",
@@ -22,13 +27,13 @@ frappe.ui.form.on("Quotation", {
       "layers",
       "custom_additional_services"
     );
-    // filterPlasticFields(
-    //   frm,
-    //   "items",
-    //   "custom_plastic_types",
-    //   "size_type",
-    //   "custom_size"
-    // );
+    filterCoverFields(
+      frm,
+      "items",
+      "custom_cover_type",
+      "cover_type",
+      "custom_cover_size"
+    );
   },
 });
 
@@ -42,6 +47,18 @@ frappe.ui.form.on("Quotation Item", {
       "custom_layers",
       "layers",
       "custom_additional_services"
+    );
+    frm.refresh_field("items");
+  },
+  custom_cover_type(frm, cdt, cdn) {
+    var row = locals[cdt][cdn];
+
+    filterCoverFields(
+      frm,
+      "items",
+      "custom_cover_type",
+      "cover_type",
+      "custom_cover_size"
     );
     frm.refresh_field("items");
   },
@@ -116,3 +133,21 @@ frappe.ui.form.on("Quotation Item", {
     frm.refresh_field("items");
   },
 });
+
+function filterCoverFields(
+  frm,
+  tableName,
+  fieldTrigger,
+  fieldName,
+  fieldFiltered
+) {
+  frm.fields_dict[tableName].grid.get_field(fieldFiltered).get_query =
+    function (doc, cdt, cdn) {
+      var child = locals[cdt][cdn];
+      if (child[fieldTrigger]) {
+        return {
+          filters: [[fieldName, "=", child[fieldTrigger]]],
+        };
+      }
+    };
+}

@@ -1,35 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:cover_size",
- "creation": "2025-11-19 16:49:56.108512",
+ "autoname": "field:cover_color",
+ "creation": "2025-12-08 14:10:41.413906",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "cover_size",
-  "cover_type"
+  "cover_color"
  ],
  "fields": [
   {
    "allow_in_quick_entry": 1,
-   "fieldname": "cover_size",
+   "fieldname": "cover_color",
    "fieldtype": "Data",
-   "label": "Cover size",
+   "label": "Cover Color",
    "unique": 1
-  },
-  {
-   "fieldname": "cover_type",
-   "fieldtype": "Link",
-   "label": "Cover Type",
-   "options": "Cover Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-08 13:54:47.218739",
+ "modified": "2025-12-08 14:11:42.841653",
  "modified_by": "Administrator",
  "module": "Enwan Factory",
- "name": "Cover size",
+ "name": "Cover Color",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

@@ -46,7 +46,7 @@ app_license = "mit"
 
 doctype_js = {
     "Sales Person": "public/js/sales_person.js",
-    # "Quotation": "public/js/qt.js",
+    "Quotation": "public/js/qt.js",
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
