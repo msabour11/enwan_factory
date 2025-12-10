@@ -1,16 +1,4 @@
 frappe.ui.form.on("Quotation", {
-  //   refresh(frm) {
-  //     // frm.fields_dict["items"].grid.get_field(
-  //     //   "custom_additional_services"
-  //     // ).get_query = function (doc, cdt, cdn) {
-  //     //   let row = locals[cdt][cdn];
-  //     //   return {
-  //     //     filters: {
-  //     //       layers: row.custom_layers,
-  //     //     },
-  //     //   };
-  //     // };
-  //   },
   refresh(frm) {
     // add material request button
     frm.add_custom_button(__("Material Request"), function () {
@@ -20,67 +8,131 @@ frappe.ui.form.on("Quotation", {
       });
     });
 
-    filterChildFields(
-      frm,
-      "items",
-      "custom_layers",
-      "layers",
-      "custom_additional_services"
-    );
-    filterCoverFields(
-      frm,
-      "items",
-      "custom_cover_type",
-      "cover_type",
-      "custom_cover_size"
-    );
+    // filterChildFields(
+    //   frm,
+    //   "items",
+    //   "custom_layers",
+    //   "layers",
+    //   "custom_additional_services"
+    // );
+    // filterCoverFields(
+    //   frm,
+    //   "items",
+    //   "custom_cover_type",
+    //   "cover_type",
+    //   "custom_cover_size"
+    // );
+  },
+
+  //////////////translations
+  before_save(frm) {
+    const labels = {
+      size: "المقاس",
+      layers: "عدد الطبقات",
+      additional_services: "الخدمات الإضافية",
+      cover_type: "نوع الغطاء",
+      cover_size: "مقاس الغطاء",
+      cover_color: "لون الغطاء",
+      type: "النوع",
+      length: "الطول",
+      width: "العرض",
+      height: "الارتفاع",
+      variables: "المتغيرات",
+    };
+
+    frm.doc.items.forEach((row) => {
+      if (row.item_group === "اكواب ورقية") {
+        let desc = `${row.item_code} - ${labels.size}: ${row.custom_size}, ${labels.layers}: ${row.custom_layers}, ${labels.additional_services}: ${row.custom_additional_services}, ${labels.cover_type}: ${row.custom_cover_type}, ${labels.cover_size}: ${row.custom_cover_size}, ${labels.cover_color}: ${row.custom_cover_color}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      } else if (row.item_group === "الاكواب البلاستيكية") {
+        let desc = `${row.item_code} - ${labels.type}: ${row.custom_plastic_types}, ${labels.size}: ${row.custom_size}, ${labels.cover_type}: ${row.custom_plastic_cover_type}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      } else if (row.item_group === "أكياس ورقية كرافت") {
+        let desc = `${row.item_code} - ${labels.length}: ${row.custom_length}, ${labels.width}: ${row.custom_width}, ${labels.height}: ${row.custom_height}, ${labels.variables}: ${row.custom_variables}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      } else if (row.item_group === "بولات") {
+        let desc = `${row.item_code} - ${labels.size}: ${row.custom_size}, ${labels.cover_type}: ${row.custom_bolt_cover_type}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      } else if (row.item_group === "مجسمات") {
+        let desc = `${row.custom_product}, ${row.custom_service}, ${row.custom_limitations}, ${row.custom_print}, ${row.custom_grams}, ${row.custom_shape_paper_type}, ${row.custom_length}, ${row.custom_width}, ${row.custom_height}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      } else if (row.item_group === "المنتجات الكرتونية المدمجة") {
+        let desc = `${row.custom_product}, ${row.custom_paper_type}, ${row.custom_print}, ${row.custom_length}, ${row.custom_width}, ${row.custom_height}`;
+
+        frappe.model.set_value(
+          row.doctype,
+          row.name,
+          "custom_product_description",
+          desc
+        );
+      }
+    });
   },
 });
 
 frappe.ui.form.on("Quotation Item", {
-  custom_layers(frm, cdt, cdn) {
-    var row = locals[cdt][cdn];
-
-    filterChildFields(
-      frm,
-      "items",
-      "custom_layers",
-      "layers",
-      "custom_additional_services"
-    );
-    frm.refresh_field("items");
-  },
-  custom_cover_type(frm, cdt, cdn) {
-    var row = locals[cdt][cdn];
-
-    filterCoverFields(
-      frm,
-      "items",
-      "custom_cover_type",
-      "cover_type",
-      "custom_cover_size"
-    );
-    frm.refresh_field("items");
-  },
-  // make filter for plastic types based on selected plastic
-  // custom_plastic_types(frm, cdt, cdn) {
+  // custom_layers(frm, cdt, cdn) {
   //   var row = locals[cdt][cdn];
 
-  //   filterPlasticFields(
+  //   filterChildFields(
   //     frm,
   //     "items",
-  //     "custom_plastic_types",
-  //     "size_type",
-  //     "custom_size"
+  //     "custom_layers",
+  //     "layers",
+  //     "custom_additional_services"
   //   );
   //   frm.refresh_field("items");
   // },
+  // custom_cover_type(frm, cdt, cdn) {
+  //   var row = locals[cdt][cdn];
+
+  //   filterCoverFields(
+  //     frm,
+  //     "items",
+  //     "custom_cover_type",
+  //     "cover_type",
+  //     "custom_cover_size"
+  //   );
+  //   frm.refresh_field("items");
+  // },
+
   item_code(frm, cdt, cdn) {
     var row = locals[cdt][cdn];
     row.custom_layers = null;
     row.custom_additional_services = null;
     row.custom_plastic_types = null;
     row.custom_size = null;
+    row.custom_product_description = null;
     frm.refresh_field("items");
   },
 });
