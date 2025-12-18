@@ -149,7 +149,10 @@ doc_events = {
         "on_cancel": "enwan_factory.api.so.update_sales_person_targets",
         "on_submit": "enwan_factory.api.so.update_sales_person_targets",
         "on_update_after_submit": "enwan_factory.api.so.update_sales_person_targets",
-    }
+    },
+    "Quotation": {
+        "before_save": "enwan_factory.api.api.before_save",
+    },
 }
 
 # Scheduled Tasks
