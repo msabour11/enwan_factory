@@ -41,7 +41,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-02 17:30:26.982361",
+ "modified": "2025-12-25 13:12:11.640815",
  "modified_by": "Administrator",
  "module": "Enwan Factory",
  "name": "Visit",
@@ -57,6 +57,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
    "share": 1,
    "write": 1
   }
