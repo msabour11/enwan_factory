@@ -125,6 +125,9 @@ frappe.ui.form.on("Quotation Item", {
   //   );
   //   frm.refresh_field("items");
   // },
+  custom_add_service(frm, cdt, cdn) {
+    open_services_dialog(frm, cdt, cdn);
+  },
 
   item_code(frm, cdt, cdn) {
     var row = locals[cdt][cdn];
@@ -216,4 +219,37 @@ function filterCoverFields(
         };
       }
     };
+}
+
+// MultiSelect Dialog Logic
+function open_services_dialog(frm, cdt, cdn) {
+  const row = locals[cdt][cdn];
+
+  let d = new frappe.ui.form.MultiSelectDialog({
+    doctype: "Additional Services",
+    target: frm,
+
+    setters: {},
+
+    get_query() {
+      return {
+        filters: {
+          enable: 1,
+        },
+      };
+    },
+
+    action(selections) {
+      if (!selections || !selections.length) return;
+
+      frappe.model.set_value(
+        cdt,
+        cdn,
+        "custom_additional_services_list",
+        selections.join("\n")
+      );
+
+      d.dialog.hide();
+    },
+  });
 }
